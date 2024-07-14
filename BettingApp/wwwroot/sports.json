@@ -1,0 +1,7 @@
+[
+  { "Id": 1, "Name": "Soccer" },
+  { "Id": 2, "Name": "Basketball" },
+  { "Id": 3, "Name": "Tennis" },
+  { "Id": 4, "Name": "Table Tennis" },
+  { "Id": 5, "Name": "Boxing" }
+]

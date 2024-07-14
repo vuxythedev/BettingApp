@@ -1,0 +1,182 @@
+[
+  {
+    "Id": 1,
+    "Name": "Premier League",
+    "SportId": 1
+  },
+  {
+    "Id": 2,
+    "Name": "La Liga",
+    "SportId": 1
+  },
+  {
+    "Id": 3,
+    "Name": "Serie A",
+    "SportId": 1
+  },
+  {
+    "Id": 4,
+    "Name": "Bundesliga",
+    "SportId": 1
+  },
+  {
+    "Id": 5,
+    "Name": "Ligue 1",
+    "SportId": 1
+  },
+  {
+    "Id": 6,
+    "Name": "Copa America",
+    "SportId": 1
+  },
+  {
+    "Id": 7,
+    "Name": "Euro Cup",
+    "SportId": 1
+  },
+  {
+    "Id": 8,
+    "Name": "World Cup",
+    "SportId": 1
+  },
+  {
+    "Id": 9,
+    "Name": "Champions League",
+    "SportId": 1
+  },
+  {
+    "Id": 10,
+    "Name": "Europa League",
+    "SportId": 1
+  },
+  {
+    "Id": 11,
+    "Name": "MLS",
+    "SportId": 1
+  },
+  {
+    "Id": 12,
+    "Name": "Liga MX",
+    "SportId": 1
+  },
+  {
+    "Id": 13,
+    "Name": "Serie B",
+    "SportId": 1
+  },
+  {
+    "Id": 14,
+    "Name": "Eredivisie",
+    "SportId": 1
+  },
+  {
+    "Id": 15,
+    "Name": "Primeira Liga",
+    "SportId": 1
+  },
+  {
+    "Id": 16,
+    "Name": "Russian Premier League",
+    "SportId": 1
+  },
+  {
+    "Id": 17,
+    "Name": "J1 League",
+    "SportId": 1
+  },
+  {
+    "Id": 18,
+    "Name": "K League 1",
+    "SportId": 1
+  },
+  {
+    "Id": 19,
+    "Name": "Chinese Super League",
+    "SportId": 1
+  },
+  {
+    "Id": 20,
+    "Name": "A-League",
+    "SportId": 1
+  },
+  {
+    "Id": 21,
+    "Name": "Brasileirão",
+    "SportId": 1
+  },
+  {
+    "Id": 22,
+    "Name": "Argentine Primera División",
+    "SportId": 1
+  },
+  {
+    "Id": 23,
+    "Name": "Scottish Premiership",
+    "SportId": 1
+  },
+  {
+    "Id": 24,
+    "Name": "Belgian Pro League",
+    "SportId": 1
+  },
+  {
+    "Id": 25,
+    "Name": "Turkish Süper Lig",
+    "SportId": 1
+  },
+  {
+    "Id": 26,
+    "Name": "Greek Super League",
+    "SportId": 1
+  },
+  {
+    "Id": 27,
+    "Name": "Swiss Super League",
+    "SportId": 1
+  },
+  {
+    "Id": 28,
+    "Name": "Austrian Bundesliga",
+    "SportId": 1
+  },
+  {
+    "Id": 29,
+    "Name": "Danish Superliga",
+    "SportId": 1
+  },
+  {
+    "Id": 30,
+    "Name": "Norwegian Eliteserien",
+    "SportId": 1
+  },
+  {
+    "Id": 31,
+    "Name": "Swedish Allsvenskan",
+    "SportId": 1
+  },
+  {
+    "Id": 32,
+    "Name": "Polish Ekstraklasa",
+    "SportId": 1
+  },
+  {
+    "Id": 33,
+    "Name": "Czech First League",
+    "SportId": 1
+  },
+  {
+    "Id": 34,
+    "Name": "Croatian First Football League",
+    "SportId": 1
+  },
+  {
+    "Id": 35,
+    "Name": "Romanian Liga I",
+    "SportId": 1
+  },
+  {
+    "Id": 36,
+    "Name": "Ukrainian Premier League",
+    "SportId": 1
+  }
+]
