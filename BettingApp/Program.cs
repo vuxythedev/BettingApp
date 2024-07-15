@@ -1,4 +1,6 @@
+using BettingApp.ServiceContracts;
 using BettingApp.StartupExtensions;
+using Microsoft.AspNetCore.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureServices(builder.Configuration);
@@ -10,8 +12,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseStaticFiles();
 
-//app.MapControllers();
+app.MapControllers();
+
+
+
 
 
 app.Run();

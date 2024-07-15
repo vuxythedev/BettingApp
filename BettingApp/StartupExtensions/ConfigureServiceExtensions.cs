@@ -1,6 +1,9 @@
 ﻿using BettingApp.Entities;
+using BettingApp.Repository;
+using BettingApp.RepositoryContracts;
+using BettingApp.ServiceContracts;
+using BettingApp.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BettingApp.StartupExtensions
 {
@@ -11,10 +14,24 @@ namespace BettingApp.StartupExtensions
             services.AddDbContext<BettingDbContext>(options =>
            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-           
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                var dbContext = serviceProvider.GetRequiredService<BettingDbContext>();
+                if (dbContext.Database.GetPendingMigrations().Any())
+                {
+                    dbContext.Database.Migrate();
+                }
+            }
+
+
             #region IOC
 
+            services.AddScoped<IBettingService, BettingService>();
+            services.AddScoped<IBettingDataRepository, BettingDataRepository>();
+
             #endregion
+
+            services.AddControllers();
 
             return services;
         }

@@ -10,8 +10,4 @@
     <ProjectReference Include="..\BettingApp.Entities\BettingApp.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>
