@@ -11,6 +11,6 @@ namespace BettingApp.ServiceContracts
         Task<IEnumerable<MatchResponse>> GetMatchesAsync(MatchRequest matchRequest);
         Task<IEnumerable<PickResponse>> GetPickOddsAsync(PickRequest pickRequest);
         Task<WalletResponse?> GetWalletByUserIdAsync(WalletRequest walletRequest);
-        Task<bool> Deposit(DepositRequest depositRequest);
+        Task<bool> DepositAsync(DepositRequest depositRequest);
     }
 }

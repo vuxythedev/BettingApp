@@ -55,10 +55,17 @@ export default {
   methods: {
     ...mapActions(['removeBet']),
     setBetAmount(amount) {
-      this.betAmount = amount;
+      if (amount > 0) {
+        this.betAmount = amount;
+      } else {
+        alert('Bet amount must be greater than zero.');
+      }
     },
     submitBet() {   
-      alert('Bet submitted!');
+      if (this.betAmount <= 0) {
+        alert('Bet amount must be greater than zero.');
+        return;
+      }
     }
   }
 };

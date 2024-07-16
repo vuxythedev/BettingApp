@@ -59,11 +59,17 @@ namespace BettingApp.Controllers
         }
 
         [HttpPost("deposit")]
-        public async Task<IActionResult> Deposit(int userId, decimal amount)
+        public async Task<IActionResult> DepositAsync([FromBody] DepositRequest request)
         {
-            var wallet = await _bettingService.GetWalletByUserIdAsync(new WalletRequest(userId));
+          
+            if(request.amount <= 0)
+            {
+                return BadRequest("Deposit amount must be greater than 0.");
+            }
 
-            if (wallet == null)
+            var wallet = await _bettingService.DepositAsync(request);
+
+            if (wallet == false)
             {
                 return NotFound("Wallet not found");
             }

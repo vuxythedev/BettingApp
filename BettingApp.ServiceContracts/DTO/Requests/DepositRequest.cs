@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace BettingApp.ServiceContracts.DTO.Requests
 {
-    public record DepositRequest(int userId, decimal Amount);
+    public record DepositRequest(int userId, decimal amount, Guid transactionGuid);
 }

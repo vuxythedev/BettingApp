@@ -5,20 +5,26 @@
     </div>
     <div class="main-content">
       <router-view />
+      <div class="right-sidebar">
+        <WalletBalance />
+        <BetSlip />
+      </div>
     </div>
-    <BetSlip />
   </div>
 </template>
 
 <script>
 import SportsMenu from './components/SportsMenu.vue';
 import BetSlip from './components/BetSlip.vue';
+import WalletBalance from './components/WalletBalance.vue';
+
 
 export default {
   name: 'App',
   components: {
     SportsMenu,
-    BetSlip
+    BetSlip,
+    WalletBalance
   }
 };
 </script>
@@ -29,11 +35,24 @@ export default {
 }
 
 .sidebar {
-  width: 250px;
+  width: 20%;
 }
 
 .main-content {
-  flex: 1;
-  padding: 20px;
+    display: flex;
+  width: 90%;
+  
 }
+
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-left: auto;
+}
+
+.wallet-balance, .bet-slip {
+  margin-bottom: 20px;
+}
+
 </style>

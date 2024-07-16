@@ -62,7 +62,7 @@ namespace BettingApp.Repository
                 .FirstOrDefaultAsync(w => w.UserId == userId);
         }
 
-        public async Task<bool> DepositAsync(int userId, decimal amount)
+        public async Task<bool> DepositAsync(int userId, decimal amount, int transactionId)
         {
             var wallet = await GetWalletByUserIdAsync(userId);
 
@@ -73,7 +73,7 @@ namespace BettingApp.Repository
 
             wallet.Balance += amount;
             wallet?.Transactions?.Add(new Transaction
-            {
+            {   Id = transactionId,        
                 Amount = amount,
                 Date = DateTime.UtcNow,
                 Type = TransactionEnum.Deposit,

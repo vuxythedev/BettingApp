@@ -45,9 +45,17 @@ namespace BettingApp.Services
             return wallet?.ToWalletResponse();
         }
        
-        public async Task<bool> Deposit(DepositRequest depositRequest)
+        public async Task<bool> DepositAsync(DepositRequest depositRequest)
         {
-            return await _bettingDataRepository.DepositAsync(depositRequest.userId, depositRequest.Amount);
+            int guidId = GuidToInt(Guid.NewGuid());
+            return await _bettingDataRepository.DepositAsync(depositRequest.userId, depositRequest.amount, guidId);
+        }
+
+        private int GuidToInt(Guid guid)
+        {
+            byte[] bytes = guid.ToByteArray();
+            int intValue = BitConverter.ToInt32(bytes, 0); 
+            return intValue;
         }
     }
 }
