@@ -1,7 +1,8 @@
 ﻿using BettingApp.ServiceContracts;
-using BettingApp.ServiceContracts.DTO;
-
+using BettingApp.ServiceContracts.DTO.Requests;
+using BettingApp.ServiceContracts.DTO.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BettingApp.Controllers
 {
@@ -14,17 +15,17 @@ namespace BettingApp.Controllers
             _bettingService = bettingService;
         }
    
-        [HttpGet("/")]
+        [HttpGet("/sports")]
         public async Task<ActionResult<IEnumerable<SportResponse>>> GetSports()
         {
             var sports = await _bettingService.GetSportsAsync();
             return Ok(sports);
         }
 
-        [HttpGet("{sportId = 1}/leagues")]
-        public async Task<ActionResult<IEnumerable<LeagueResponse>>> GetLeagues([FromRoute] int sportId)
+        [HttpGet("/leagues")]
+        public async Task<ActionResult<IEnumerable<LeagueResponse>>> GetLeagues()
         {
-            var leagues = await _bettingService.GetLeaguesAsync(new LeagueRequest(sportId));
+            var leagues = await _bettingService.GetLeaguesAsync();
             return Ok(leagues);
         }
 
@@ -36,7 +37,7 @@ namespace BettingApp.Controllers
             return Ok(matches);
         }
 
-        [HttpGet("{sportId}/{leagueId}/{isTopOffer}/odds")] 
+        [HttpGet("/offers/{sportId}/{leagueId}/{isTopOffer}")] 
         public async Task<ActionResult<IEnumerable<PickResponse>>> GetOddsBySportAndLeague([FromRoute] int sportId,
             [FromRoute] int leagueId, [FromRoute] bool isTopOffer)
         {
@@ -44,5 +45,30 @@ namespace BettingApp.Controllers
             return Ok(odds);
         }
 
+        [HttpGet("get-wallet")]
+        public async Task<IActionResult> GetWallet(int userId)
+        {
+            var wallet = await _bettingService.GetWalletByUserIdAsync(new WalletRequest(userId));
+            
+            if (wallet == null)
+            {
+                return NotFound("Wallet not found");
+            }
+
+            return Ok(wallet);
+        }
+
+        [HttpPost("deposit")]
+        public async Task<IActionResult> Deposit(int userId, decimal amount)
+        {
+            var wallet = await _bettingService.GetWalletByUserIdAsync(new WalletRequest(userId));
+
+            if (wallet == null)
+            {
+                return NotFound("Wallet not found");
+            }
+
+            return Ok(wallet);
+        }
     }
 }

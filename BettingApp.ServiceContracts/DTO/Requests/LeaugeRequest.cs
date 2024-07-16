@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BettingApp.ServiceContracts.DTO
+namespace BettingApp.ServiceContracts.DTO.Requests
 {
-    public record MatchRequest(int sportId);
-      
+    public record LeagueRequest(int sportId);
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BettingApp.ServiceContracts.DTO
+namespace BettingApp.ServiceContracts.DTO.Responses
 {
     public class TeamResponse
     {
@@ -20,7 +20,7 @@ namespace BettingApp.ServiceContracts.DTO
             return new TeamResponse
             {
                 Id = team.Id,
-                Name = team.Name        
+                Name = team.Name
             };
         }
     }

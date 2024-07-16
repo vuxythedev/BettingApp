@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BettingApp.ServiceContracts.DTO
+namespace BettingApp.ServiceContracts.DTO.Responses
 {
     public class SportResponse
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;    
+        public string Name { get; set; } = null!;
+
     }
 
     public static class SportExtensions
@@ -20,7 +21,8 @@ namespace BettingApp.ServiceContracts.DTO
             return new SportResponse
             {
                 Id = sport.Id,
-                Name = sport.Name         
+                Name = sport.Name
+
             };
         }
     }

@@ -1,7 +1,8 @@
 ﻿using BettingApp.Entities;
 using BettingApp.RepositoryContracts;
 using BettingApp.ServiceContracts;
-using BettingApp.ServiceContracts.DTO;
+using BettingApp.ServiceContracts.DTO.Requests;
+using BettingApp.ServiceContracts.DTO.Responses;
 
 namespace BettingApp.Services
 {
@@ -20,9 +21,9 @@ namespace BettingApp.Services
             return sports.Select(s => s.ToSportResponse()).ToList();
         }
 
-        public async Task<IEnumerable<LeagueResponse>> GetLeaguesAsync(LeagueRequest leagueRequest)
+        public async Task<IEnumerable<LeagueResponse>> GetLeaguesAsync()
         {
-            var leagues = await _bettingDataRepository.GetLeaguesAsync(leagueRequest.sportId);
+            var leagues = await _bettingDataRepository.GetLeaguesAsync();
             return leagues.Select(l => l.ToLeagueResponse()).ToList();
         }
 
@@ -36,6 +37,17 @@ namespace BettingApp.Services
         {
             var picks = await _bettingDataRepository.GetPickOddsAsync(pickRequest.sportId, pickRequest.leagueId, pickRequest.isTopOffer);
             return picks.Select(p => p.ToPickResponse()).ToList();
+        }
+
+        public async Task<WalletResponse?> GetWalletByUserIdAsync(WalletRequest walletRequest)
+        {
+            var wallet = await _bettingDataRepository.GetWalletByUserIdAsync(walletRequest.userId);
+            return wallet?.ToWalletResponse();
+        }
+       
+        public async Task<bool> Deposit(DepositRequest depositRequest)
+        {
+            return await _bettingDataRepository.DepositAsync(depositRequest.userId, depositRequest.Amount);
         }
     }
 }

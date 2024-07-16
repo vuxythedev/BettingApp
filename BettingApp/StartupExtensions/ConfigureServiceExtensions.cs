@@ -30,6 +30,17 @@ namespace BettingApp.StartupExtensions
             services.AddScoped<IBettingDataRepository, BettingDataRepository>();
 
             #endregion
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
 
             services.AddControllers();
 

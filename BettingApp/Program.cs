@@ -15,6 +15,7 @@ app.UseRouting();
 app.UseStaticFiles();
 
 app.MapControllers();
+app.UseCors("AllowAllOrigins");
 
 
 

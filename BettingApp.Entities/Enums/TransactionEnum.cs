@@ -8,6 +8,8 @@ namespace BettingApp.Entities.Enums
 {
     public enum TransactionEnum
     {
-
+        Deposit,
+        Canceled,
+        Refound
     }
 }

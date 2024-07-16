@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BettingApp.ServiceContracts.DTO
+namespace BettingApp.ServiceContracts.DTO.Responses
 {
     public class PickResponse
     {
-        public int Id { get; set; }       
-        public MatchResponse?  Match{ get; set; }        
+        public int Id { get; set; }
+        public MatchResponse? Match { get; set; }
         public BetTypeResponse? BetType { get; set; }
         public decimal? Odd { get; set; }
         public bool IsTopOffer { get; set; }
@@ -31,7 +31,7 @@ namespace BettingApp.ServiceContracts.DTO
                 Odd = pick.Odd,
                 IsTopOffer = pick.IsTopOffer,
                 IsSuspended = pick.IsSuspended,
-                Status = pick.Status            
+                Status = pick.Status
             };
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BettingApp.Entities;
+using BettingApp.Entities.Enums;
 using BettingApp.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,12 +15,18 @@ namespace BettingApp.Repository
 
         public async Task<IEnumerable<Sport>> GetSportsAsync()
         {
-            return await _context.Sports.ToListAsync();
+            var sports = _context.Sports
+           .Include(s => s.Leagues)
+           .ToListAsync();
+
+            return await sports;
         }
 
-        public async Task<IEnumerable<League>> GetLeaguesAsync(int sportId)
+        public async Task<IEnumerable<League>> GetLeaguesAsync()
         {
-            return await _context.Leagues.Where(l => l.SportId == sportId).ToListAsync();
+            return await _context.Leagues
+                .Include(l => l.Sport)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Match>> GetMatchesAsync(int sportId)
@@ -46,6 +53,37 @@ namespace BettingApp.Repository
             
              .Where(p => p.Match != null && p.Match.SportId == sportId && p.Match.LeagueId == leagueId && p.IsTopOffer == isTopOffer)
              .ToListAsync();
-        }           
+        }
+
+        public async Task<Wallet?> GetWalletByUserIdAsync(int userId)
+        {
+            return await _context.Wallets
+                .Include(w => w.Transactions)
+                .FirstOrDefaultAsync(w => w.UserId == userId);
+        }
+
+        public async Task<bool> DepositAsync(int userId, decimal amount)
+        {
+            var wallet = await GetWalletByUserIdAsync(userId);
+
+            if (wallet == null)
+            {
+                return false;
+            }
+
+            wallet.Balance += amount;
+            wallet?.Transactions?.Add(new Transaction
+            {
+                Amount = amount,
+                Date = DateTime.UtcNow,
+                Type = TransactionEnum.Deposit,
+                WalletId = wallet.Id
+            });
+
+             await _context.SaveChangesAsync();
+
+            return true;
+
+        }
     }
 }
