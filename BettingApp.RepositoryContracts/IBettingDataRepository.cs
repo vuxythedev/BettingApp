@@ -15,6 +15,9 @@ namespace BettingApp.RepositoryContracts
         Task<IEnumerable<Pick>> GetPickOddsAsync(int sportId, int leagueId, bool isTopOffer = false);
         Task<Wallet?> GetWalletByUserIdAsync(int userId);
         Task<bool> DepositAsync(int userId, decimal amount, int transactionId);
+        Task<bool> CreateTicket(Ticket ticket);
+        Task<List<Ticket>> GetUserTicketsAsync(int userId);
+        Task<bool> UpdateWalllet(Wallet wallet);
     }
        
 }

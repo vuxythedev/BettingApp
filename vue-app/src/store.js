@@ -23,6 +23,9 @@ const store = createStore({
     },
     setWalletBalance(state, balance) {
       state.walletBalance = balance;
+    },
+    clearBetSlip(state) {
+      state.betSlip = [];
     }
   },
   actions: {
@@ -80,8 +83,43 @@ const store = createStore({
         console.error('Error depositing to wallet:', error);
       }
     },
-    addBetToSlip({ commit }, offer) {
-      commit('addBetToSlip', offer);
+
+    async addTicket({ commit }, ticketRequest) {
+      try {
+        const response = await fetch('http://localhost:5020/add-ticket', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(ticketRequest)
+        });
+        const success = await response.ok;
+        if (success) {
+          commit('clearBetSlip');
+        }
+        return success;
+      } catch (error) {
+        console.error('Error adding ticket:', error);
+        return false;
+      }
+    },
+    async updateWalletBalance({ commit }, { userId, amount }) {
+      try {
+        const response = await fetch(`http://localhost:5020/update-wallet`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ userId, amount })
+        });
+        const data = await response.json();
+        commit('setWalletBalance', data.balance);
+      } catch (error) {
+        console.error('Error updating wallet balance:', error);
+      }
+  },
+  addBetToSlip({ commit }, offer) {
+    commit('addBetToSlip', offer);
   },
   removeBet({ commit }, betId) {
     commit('removeBet', betId);

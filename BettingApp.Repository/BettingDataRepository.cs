@@ -85,5 +85,40 @@ namespace BettingApp.Repository
             return true;
 
         }
+
+        public async Task<bool> CreateTicket(Ticket ticket)
+        {
+            _context.Tickets.Add(ticket);
+           return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<List<Ticket>> GetUserTicketsAsync(int userId)
+        {
+            return await _context.Tickets
+            .Include(t => t.TicketBets)
+            .Where(t => t.UserId == userId)
+            .ToListAsync();
+        }
+
+        public async Task<bool> UpdateWalllet(Wallet updateWallet)
+        {
+            var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == updateWallet.UserId);
+            if (wallet == null)
+            {
+                return false;
+            }
+
+            wallet.Balance += updateWallet.Balance;
+            if (wallet.Balance < 0)
+            {
+                wallet.Balance -= updateWallet.Balance; // Revert the transaction if balance is insufficient
+                return false;
+            }
+
+            _context.Wallets.Update(wallet);
+            await _context.SaveChangesAsync();
+            return true;
+       }
+   
     }
 }

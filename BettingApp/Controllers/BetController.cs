@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BettingApp.Controllers
 {
-    public class BetController : Controller 
+    public class BetController : Controller
     {
         private readonly IBettingService _bettingService;
 
@@ -14,7 +14,7 @@ namespace BettingApp.Controllers
         {
             _bettingService = bettingService;
         }
-   
+
         [HttpGet("/sports")]
         public async Task<ActionResult<IEnumerable<SportResponse>>> GetSports()
         {
@@ -37,11 +37,11 @@ namespace BettingApp.Controllers
             return Ok(matches);
         }
 
-        [HttpGet("/offers/{sportId}/{leagueId}/{isTopOffer}")] 
+        [HttpGet("/offers/{sportId}/{leagueId}/{isTopOffer}")]
         public async Task<ActionResult<IEnumerable<PickResponse>>> GetOddsBySportAndLeague([FromRoute] int sportId,
             [FromRoute] int leagueId, [FromRoute] bool isTopOffer)
         {
-            var odds = await _bettingService.GetPickOddsAsync(new PickRequest(sportId,leagueId,isTopOffer));
+            var odds = await _bettingService.GetPickOddsAsync(new PickRequest(sportId, leagueId, isTopOffer));
             return Ok(odds);
         }
 
@@ -49,7 +49,7 @@ namespace BettingApp.Controllers
         public async Task<IActionResult> GetWallet(int userId)
         {
             var wallet = await _bettingService.GetWalletByUserIdAsync(new WalletRequest(userId));
-            
+
             if (wallet == null)
             {
                 return NotFound("Wallet not found");
@@ -61,8 +61,8 @@ namespace BettingApp.Controllers
         [HttpPost("deposit")]
         public async Task<IActionResult> DepositAsync([FromBody] DepositRequest request)
         {
-          
-            if(request.amount <= 0)
+
+            if (request.amount <= 0)
             {
                 return BadRequest("Deposit amount must be greater than 0.");
             }
@@ -75,6 +75,43 @@ namespace BettingApp.Controllers
             }
 
             return Ok(wallet);
+        }
+
+        [HttpPost("add-ticket")]
+        public async Task<IActionResult> AddTicketAsync([FromBody] TicketRequest ticketRequest)
+        {
+            if (ticketRequest == null)
+            {
+                return BadRequest("Invalid ticket request.");
+            }
+
+            if (ticketRequest.Amount <= 0)
+            {
+                return BadRequest("Invalid amount");
+            }
+
+            bool result = await _bettingService.AddTicketAsync(ticketRequest);
+
+            if (!result)
+            {
+                return StatusCode(500, "An error occurred while adding the ticket.");
+            }
+
+            return Ok("Ticket added successfully.");
+        }
+
+
+        [HttpPost("update-wallet")]
+        public async Task<IActionResult> UpdateWalletBalance([FromBody] UpdateWalletRequest request)
+        {
+            var success = await _bettingService.UpdateWalletBalance(request);
+
+            if (!success)
+            {
+                return BadRequest("Failed to update wallet balance");
+            }
+
+            return Ok("Wallet has already updated");
         }
     }
 }

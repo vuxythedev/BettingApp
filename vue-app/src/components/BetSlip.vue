@@ -38,7 +38,9 @@ export default {
   data() {
     return {
       betAmounts: [10, 20, 25, 50, 100],
-      betAmount: 2 
+      betAmount: 2,
+      userId:1
+
     };
   },
   computed: {
@@ -53,7 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['removeBet']),
+    ...mapActions(['removeBet','fetchWalletBalance','addTicket']),
     setBetAmount(amount) {
       if (amount > 0) {
         this.betAmount = amount;
@@ -61,12 +63,40 @@ export default {
         alert('Bet amount must be greater than zero.');
       }
     },
-    submitBet() {   
-      if (this.betAmount <= 0) {
-        alert('Bet amount must be greater than zero.');
+  async submitBet() {   
+      if (this.betAmount <= 0 ||  this.betAmount > this.walletBalance) {
+        alert('Invalid bet amount or insufficient funds');
         return;
+
       }
-    }
+
+      const ticketRequest = {
+        userId: this.userId,
+        amount: this.totalToPay,
+        date: new Date(),
+        ticketBets: this.betSlip.map(bet => ({
+          matchId: bet.match.id,
+          betTypeId: bet.betType.id,
+          odd: bet.odd
+        }))
+      };
+
+      const success = await this.addTicket(ticketRequest);
+
+      if (success) {
+        alert("Bet submitted successfully!");
+         
+        await this.$store.dispatch('updateWalletBalance', {
+        userId: this.userId,
+        amount: -this.betAmount  
+      });
+
+        this.betSlip = [];
+        this.fetchWalletBalance(this.userId);
+      } else {
+        alert("Failed to submit bet" + '' +this.ticketRequest);
+      }     
+    },
   }
 };
 </script>
