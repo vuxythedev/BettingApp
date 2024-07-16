@@ -80,7 +80,7 @@ export default {
   width: 300px;
   position: fixed;
   right: 20px;
-  top: 80px;
+  top: 20px;
 }
 
 .bet-item {

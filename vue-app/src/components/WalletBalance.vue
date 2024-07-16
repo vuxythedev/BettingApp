@@ -51,8 +51,13 @@ export default {
 .wallet-balance {
   border: 1px solid #dee2e6;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 10px;
   background-color: #f8f9fa;
+  width:300px;
+  position:fixed;
+  right: 20%;
+  top:20px;
+
 }
 
 .deposit {

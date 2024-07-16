@@ -1,10 +1,11 @@
 <template>
   <div class="sports-menu">
-    <h2>Sportovi</h2>
+    <h2>Sports</h2>
     <ul class="sports-list">
       <li v-for="sport in sportsWithLeagues" :key="sport.id" class="sport-item">
         <div @click="toggleSport(sport.id)" class="sport-header">
-          <img :src="getSportIcon(sport.name)" class="sport-icon" /> {{ sport.name }}
+          <img :src="getSportIcon(sport.name)" class="sport-icon" /> 
+          <span>{{ sport.name }}</span>
         </div>
         <ul v-if="isSportOpen(sport.id)" class="leagues-list">
           <li v-for="league in sport.leagues" :key="league.id" class="league-item">
@@ -56,11 +57,11 @@ export default {
     },
     getSportIcon(sportName) {
       const icons = {
-        Soccer: 'path/to/soccer-icon.png',
-        Basketball: 'path/to/basketball-icon.png',
-        Tennis: 'path/to/tennis-icon.png',
-        'Table Tennis': 'path/to/table-tennis-icon.png',
-        Boxing: 'path/to/boxing-icon.png'
+        Soccer: require('@/assets/icons/football.png'),
+         Basketball: require('@/assets/icons/basketball.png'),
+        Tennis: require('@/assets/icons/tennis.png'),
+        'Table Tennis': require('@/assets/icons/table-tennis.png'),
+         Boxing: require('@/assets/icons/boxing.png')
       };
       return icons[sportName] || 'path/to/default-icon.png';
     }
@@ -102,8 +103,8 @@ export default {
 }
 
 .sport-icon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   margin-right: 10px;
 }
 
