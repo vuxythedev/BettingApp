@@ -6,7 +6,7 @@
     <div class="main-content">
       <router-view />
       <div class="right-sidebar">
-        <WalletBalance />
+        <WalletBalance />      
         <BetSlip />
       </div>
     </div>
@@ -24,35 +24,34 @@ export default {
   components: {
     SportsMenu,
     BetSlip,
-    WalletBalance
+    WalletBalance     
   }
 };
 </script>
 
 <style>
-#app {
-  display: flex;
-}
+    #app {
+        display: flex;
+    }
 
-.sidebar {
-  width: 20%;
-}
+    .sidebar {
+        width: 20%;
+    }
 
-.main-content {
-    display: flex;
-  width: 90%;
-  
-}
+    .main-content {
+        display: flex;
+        width: 90%;
+    }
 
-.right-sidebar {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin-left: auto;
-}
+    .right-sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        margin-left: auto;
+    }
 
-.wallet-balance, .bet-slip {
-  margin-bottom: 20px;
-}
+    .wallet-balance, .bet-slip {
+        margin-bottom: 20px;
+    }
 
 </style>

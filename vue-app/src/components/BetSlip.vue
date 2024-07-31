@@ -45,7 +45,8 @@ export default {
   },
   computed: {
     ...mapState({
-      betSlip: state => state.betSlip
+      betSlip: state => state.betSlip,
+      walletBalance: state => state.walletBalance
     }),
     totalToPay() {
       return (this.betSlip.length * this.betAmount * 0.95).toFixed(2); 

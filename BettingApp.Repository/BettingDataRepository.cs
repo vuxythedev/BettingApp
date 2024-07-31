@@ -50,7 +50,7 @@ namespace BettingApp.Repository
                  .ThenInclude(m => m.HomeTeam)
              .Include(p => p.Match)
                  .ThenInclude(m => m.AwayTeam)
-            
+
              .Where(p => p.Match != null && p.Match.SportId == sportId && p.Match.LeagueId == leagueId && p.IsTopOffer == isTopOffer)
              .ToListAsync();
         }
@@ -73,14 +73,15 @@ namespace BettingApp.Repository
 
             wallet.Balance += amount;
             wallet?.Transactions?.Add(new Transaction
-            {   Id = transactionId,        
+            {
+                Id = transactionId,
                 Amount = amount,
                 Date = DateTime.UtcNow,
                 Type = TransactionEnum.Deposit,
                 WalletId = wallet.Id
             });
 
-             await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return true;
 
@@ -89,36 +90,36 @@ namespace BettingApp.Repository
         public async Task<bool> CreateTicket(Ticket ticket)
         {
             _context.Tickets.Add(ticket);
-           return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<Ticket>> GetUserTicketsAsync(int userId)
+        public async Task<List<Ticket>> GetUserTicketsListAsync(Ticket ticket)
         {
             return await _context.Tickets
             .Include(t => t.TicketBets)
-            .Where(t => t.UserId == userId)
+            .Where(t => t.UserId == ticket.UserId)
             .ToListAsync();
         }
 
         public async Task<bool> UpdateWalllet(Wallet updateWallet)
         {
-            var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == updateWallet.UserId);
-            if (wallet == null)
-            {
-                return false;
-            }
+                var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == updateWallet.UserId);
+                if (wallet == null)
+                {
+                    return false;
+                }
 
-            wallet.Balance += updateWallet.Balance;
-            if (wallet.Balance < 0)
-            {
-                wallet.Balance -= updateWallet.Balance; // Revert the transaction if balance is insufficient
-                return false;
-            }
+                wallet.Balance += updateWallet.Balance;
+                if (wallet.Balance < 0)
+                {
+                    wallet.Balance -= updateWallet.Balance; // Revert the transaction if balance is insufficient
+                    return false;
+                }
 
-            _context.Wallets.Update(wallet);
-            await _context.SaveChangesAsync();
+                _context.Wallets.Update(wallet);
+                await _context.SaveChangesAsync();          
             return true;
-       }
-   
+        }
+
     }
 }

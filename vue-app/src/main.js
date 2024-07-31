@@ -1,14 +1,15 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue'
+
 import OfferList from './components/OffersList.vue';
 import BetSlip from './components/BetSlip.vue';
 
 import store from './store';
 
 const routes = [
-    { path: '/', redirect: '/sports' },
-    { path: '/sports/:sportId/leagues/:leagueId', name: 'offer-list', component: OfferList }
+    { path: '/', allias:'offer-list' },
+    { path: '/sports/:sportId/leagues/:leagueId', name: 'offer-list', component: OfferList,},
   ];
 
 const router = createRouter({

@@ -53,7 +53,7 @@ export default {
   padding: 20px;
   margin-top: 10px;
   background-color: #f8f9fa;
-  width:300px;
+  width:150px;
   position:fixed;
   right: 20%;
   top:20px;

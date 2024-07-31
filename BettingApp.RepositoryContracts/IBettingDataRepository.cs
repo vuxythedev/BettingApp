@@ -16,7 +16,7 @@ namespace BettingApp.RepositoryContracts
         Task<Wallet?> GetWalletByUserIdAsync(int userId);
         Task<bool> DepositAsync(int userId, decimal amount, int transactionId);
         Task<bool> CreateTicket(Ticket ticket);
-        Task<List<Ticket>> GetUserTicketsAsync(int userId);
+        Task<List<Ticket>> GetUserTicketsListAsync(Ticket ticket);
         Task<bool> UpdateWalllet(Wallet wallet);
     }
        

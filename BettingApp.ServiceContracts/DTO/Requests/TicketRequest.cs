@@ -16,10 +16,10 @@ namespace BettingApp.ServiceContracts.DTO.Requests
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }
         public ICollection<TicketBet> TicketBets { get; set; } = new List<TicketBet>();
-
+     
         public Ticket ToTicket()
         {
-            return new Ticket() { Id = Id, UserId = UserId, Date = Date, TicketBets = TicketBets };
+            return new Ticket() { Id = Id, UserId = UserId, Amount = Amount, Date = Date, TicketBets = TicketBets };
         }
     }
 }
